@@ -1,33 +1,36 @@
-.alignPagination {
-  margin-top: 20px;
+.pokemonImage {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 100%;
+
+  img {
+    width: 75%;
+    height: auto;
+  }
 }
 
-.pagination {
+.pokemonTypes {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 15px;
+
+  .typeBadge {
+    max-width: 50%;
+  }
+}
+
+.toggleContainer {
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  overflow: hidden;
-  max-width: 173px;
-}
+  justify-content: space-around;
 
-.page {
-  padding: 10px 17px;
-  width: 43px;
-  height: 21px;
-  cursor: pointer;
-  color: #333;
-}
+  div {
+    display: flex;
+    align-items: center;
+  }
 
-.page.active {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.page:hover {
-  background-color: #f0f0f0;
+  span {
+    margin-right: 10px;
+    font-weight: bold;
+  }
 }
