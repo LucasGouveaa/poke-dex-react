@@ -33,7 +33,7 @@ const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
-            <ModalHeader toggle={toggle}>Detalhes do {pokemon.name}</ModalHeader>
+            <ModalHeader toggle={toggle}>{pokemon.name}</ModalHeader>
             <ModalBody>
                 <div className={styles.toggleContainer}>
                     <div>

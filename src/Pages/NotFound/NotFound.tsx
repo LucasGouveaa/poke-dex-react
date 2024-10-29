@@ -3,6 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import styles from './styles.module.scss';
 
 const NotFound: React.FC = () => {
+    document.title = 'Pokédex';
+
     const navigate = useNavigate();
 
     const handleGoHome = () => {

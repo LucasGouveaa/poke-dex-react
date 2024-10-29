@@ -45,7 +45,7 @@ const ListPokemons: React.FC = () => {
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h1>Pokémons</h1>
-                    <FilterPokemons filter={filter} setFilter={setFilter}/>
+                    <FilterPokemons filter={filter} setFilter={setFilter} isLoading={isLoading}/>
                 </div>
                 {isLoading ?
                     <BarLoader
