@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     return (
         <div className={styles.home}>
             <img src={img} alt={'Pokeball'}/>
-            <h1>Bem-vindo ao Pokédex!</h1>
+            <h1>Bem-vindo à Pokédex!</h1>
             <p>Explore uma lista completa de Pokémons.</p>
             <button onClick={goToPokemonList}>
                 Ir para Listagem de Pokémons
