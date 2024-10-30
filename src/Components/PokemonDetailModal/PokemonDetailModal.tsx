@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Modal, ModalHeader, ModalBody} from 'reactstrap';
 import styles from './styles.module.scss';
 import {IPokemon, IType} from "../../Interfaces/Backend";
@@ -14,6 +14,12 @@ interface Props {
 const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
     const [isShiny, setIsShiny] = useState(false);
     const [isFemale, setIsFemale] = useState(false);
+
+    useEffect(() => {
+        setIsShiny(false)
+        setIsFemale(false)
+
+    }, [pokemon]);
 
     const getUrl = (pokemon: IPokemon) => {
         if (isShiny) {
@@ -33,7 +39,7 @@ const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
-            <ModalHeader toggle={toggle}>{pokemon.name}</ModalHeader>
+            <ModalHeader toggle={toggle}>Detalhes</ModalHeader>
             <ModalBody>
                 <div className={styles.toggleContainer}>
                     <div>
@@ -81,8 +87,8 @@ const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
                         )
                     })}
                 </div>
-                <p><strong>Nome:</strong></p>
-                <p><strong>Habitat:</strong> {pokemon.habitat}</p>
+                <p><strong>Nome:</strong> {pokemon.name}</p>
+                <p><strong>Habitat:</strong> {pokemon.habitat ?? 'Não definido'}</p>
                 <p><strong>Habilidades:</strong> {pokemon.abilities.join(', ')}</p>
             </ModalBody>
         </Modal>

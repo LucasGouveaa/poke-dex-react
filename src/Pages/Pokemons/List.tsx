@@ -1,7 +1,7 @@
 import React, {CSSProperties, useState} from 'react';
 import styles from './styles.module.scss';
 import FilterPokemons from "../../Components/FilterPokemons/FilterPokemons";
-import {IFilterPokemons, IPokemon, IType} from "../../Interfaces/Backend";
+import {IDataPokemons, IFilterPokemons, IPokemon, IType} from "../../Interfaces/Backend";
 import {useQuery} from "react-query";
 import {getPokemons} from "../../Services/Services";
 import {BarLoader} from "react-spinners";
@@ -27,7 +27,7 @@ const ListPokemons: React.FC = () => {
     const [selectedPokemon, setSelectedPokemon] = useState<IPokemon | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {data, isLoading} = useQuery(['pokemons', filter], () => getPokemons(filter), {
+    const {data, isLoading} = useQuery<IDataPokemons>(['pokemons', filter], () => getPokemons(filter), {
         staleTime: Infinity
     })
 
@@ -56,7 +56,7 @@ const ListPokemons: React.FC = () => {
                         data-testid="loader"
 
                     />
-                    : (data && data.data ?
+                    : (data && data.data && data.data.pokemons.length > 0 ?
                             <div className={styles.pokemonGrid}>
                                 {data.data.pokemons.map((pokemon: IPokemon) => {
                                     return (
@@ -66,7 +66,8 @@ const ListPokemons: React.FC = () => {
                                                  alt={pokemon.name}/>
                                             <p><strong>ID:</strong> {pokemon.id}</p>
                                             <p><strong>Nome:</strong> {pokemon.name}</p>
-                                            <p className={styles.habitat}><strong>Habitat:</strong> {pokemon.habitat}
+                                            <p className={styles.habitat}>
+                                                <strong>Habitat:</strong> {pokemon.habitat ?? 'Não definido'}
                                             </p>
                                             <div className={styles.pokemonTypes}>
                                                 {pokemon.types.map((type: IType) => {
