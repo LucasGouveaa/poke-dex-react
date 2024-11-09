@@ -11,6 +11,7 @@ export interface IType {
     name: string;
     img_url: string;
 }
+
 export interface IPokemon {
     id: number;
     name: string;
@@ -36,4 +37,29 @@ export interface IDataPokemons {
         perPage: number;
         total: number;
     }
+}
+
+export interface IUser {
+    id: number;
+    name: string;
+    email: string
+    token: string | null;
+}
+
+export interface IDataUser {
+    data: {
+        success: boolean;
+        user: IUser | null
+    }
+}
+
+export interface IPostLogin {
+    email: string;
+    password: string;
+}
+
+export interface IPostRegister {
+    name: string;
+    email: string;
+    password: string;
 }
