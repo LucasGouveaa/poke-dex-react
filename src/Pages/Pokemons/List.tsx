@@ -69,6 +69,9 @@ const ListPokemons: React.FC = () => {
                                             <p className={styles.habitat}>
                                                 <strong>Habitat:</strong> {pokemon.habitat ?? 'Não definido'}
                                             </p>
+                                            {pokemon.trainer_name &&
+                                                <p><strong>Treinador:</strong> {pokemon.trainer_name}</p>
+                                            }
                                             <div className={styles.pokemonTypes}>
                                                 {pokemon.types.map((type: IType) => {
                                                     return (

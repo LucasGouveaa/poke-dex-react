@@ -29,4 +29,31 @@
     font-size: 1rem;
     font-weight: 500;
   }
+
+  .popper {
+    position: absolute;
+    top: 60px;
+    background-color: white;
+    border: 1px solid #ddd;
+    color: black;
+    padding: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1000;
+    min-width: 111px;
+    right: -1px;
+
+    .logout {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
 }
+

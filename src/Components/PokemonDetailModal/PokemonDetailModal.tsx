@@ -4,6 +4,8 @@ import styles from './styles.module.scss';
 import {IPokemon, IType} from "../../Interfaces/Backend";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-switch';
+import img from '../../Images/pokeball.png';
+import {toast} from 'react-toastify';
 
 interface Props {
     isOpen: boolean;
@@ -35,6 +37,10 @@ const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
 
             return pokemon.front_default
         }
+    }
+
+    const capturePokemon = () => {
+        toast.success("Capturando " + pokemon.name)
     }
 
     return (
@@ -90,6 +96,16 @@ const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
                 <p><strong>Nome:</strong> {pokemon.name}</p>
                 <p><strong>Habitat:</strong> {pokemon.habitat ?? 'Não definido'}</p>
                 <p><strong>Habilidades:</strong> {pokemon.abilities.join(', ')}</p>
+                {pokemon.trainer_name ?
+                    <p><strong>Capturado por:</strong> {pokemon.trainer_name}</p>
+                    :
+                    <div className={styles.capture}>
+                        <button onClick={() => capturePokemon()}>
+                            <img src={img} alt={'Pokeball'}/>
+                            <span>Capturar</span>
+                        </button>
+                    </div>
+                }
             </ModalBody>
         </Modal>
     );

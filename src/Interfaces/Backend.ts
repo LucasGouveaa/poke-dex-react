@@ -26,6 +26,7 @@ export interface IPokemon {
     front_shiny_female?: string | null;
     back_shiny_female?: string | null;
     types: IType[]
+    trainer_name?: string | null;
 }
 
 

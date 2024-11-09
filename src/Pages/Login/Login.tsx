@@ -6,6 +6,7 @@ import {useMutation} from "react-query";
 import {login} from "../../Services/Services";
 import {useCookies} from "react-cookie";
 import {IPostLogin} from "../../Interfaces/Backend";
+import {toast} from 'react-toastify';
 
 const Login: React.FC = () => {
     const [params, setParams] = useState<IPostLogin>({
@@ -38,20 +39,23 @@ const Login: React.FC = () => {
         return login(params)
     }, {
         onSettled: (result) => {
-            if (result && result.data && result.data.success) {
-                localStorage.setItem("jwt_token", result.data.token)
-                setCookies("jwt_token", result.data.token, {
-                    domain: window.location.hostname,
-                    path: "/",
-                    maxAge: 3600 * 24
-                })
+            if (result && result.data) {
+                if (result.data.success) {
+                    setCookies("jwt_token", result.data.token, {
+                        domain: window.location.hostname,
+                        path: "/",
+                        maxAge: 3600 * 24
+                    })
 
-                navigate('/')
+                    navigate('/')
+                } else {
+                    toast.error(result.data.message)
+                }
             }
         },
         onError: (error) => {
             console.log(error)
-            alert('Erro ao logar.');
+            toast.error('Erro ao logar.')
         }
     })
 
@@ -87,7 +91,7 @@ const Login: React.FC = () => {
 
                 <button disabled={mutateLogin.isLoading} type="submit" className={styles.loginButton}>Entrar</button>
 
-                <p onClick={() => navigate('/login')}>Não possui conta? Crie agora!</p>
+                <p onClick={() => navigate('/register')}>Não possui conta? Crie agora!</p>
             </form>
         </div>
     );

@@ -24,3 +24,7 @@ export const login = (data: IPostLogin) => {
 export const register = (data: IPostRegister) => {
     return Promise.resolve(api.post('/v1/auth/register', data))
 }
+
+export const logout = () => {
+    return Promise.resolve(api.post('/v1/auth/logout'))
+}

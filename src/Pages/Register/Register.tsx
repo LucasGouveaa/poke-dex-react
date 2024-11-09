@@ -6,6 +6,7 @@ import {register} from "../../Services/Services";
 import {IPostRegister} from "../../Interfaces/Backend";
 import {useCookies} from "react-cookie";
 import UseAuth from "../../Helpers/UseAuth";
+import {toast} from "react-toastify";
 
 const Register: React.FC = () => {
     const [params, setParams] = useState<IPostRegister>({
@@ -46,20 +47,23 @@ const Register: React.FC = () => {
         return register(params)
     }, {
         onSettled: (result) => {
-            if (result && result.data && result.data.success) {
-                localStorage.setItem("jwt_token", result.data.token)
-                setCookies("jwt_token", result.data.token, {
-                    domain: window.location.hostname,
-                    path: "/",
-                    maxAge: 3600 * 24
-                })
+            if (result && result.data) {
+                if (result.data.success) {
+                    setCookies("jwt_token", result.data.token, {
+                        domain: window.location.hostname,
+                        path: "/",
+                        maxAge: 3600 * 24
+                    })
 
-                navigate('/')
+                    navigate('/')
+                } else {
+                    toast.error(result.data.message)
+                }
             }
         },
         onError: (error) => {
             console.log(error)
-            alert('Erro ao cadastrar.');
+            toast.error('Erro ao cadastrar.')
         }
     })
 
@@ -87,7 +91,7 @@ const Register: React.FC = () => {
                         id="email"
                         disabled={mutateRegister.isLoading}
                         value={params.email}
-                        onChange={(e) => setParams({...params, email: e.target.value})}
+                            onChange={(e) => setParams({...params, email: e.target.value})}
                         placeholder="Digite seu e-mail"
                         required
                     />
