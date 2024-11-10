@@ -28,7 +28,7 @@ const Login: React.FC = () => {
 
         // Validação simples dos campos
         if (!params.email.trim() || !params.password.trim()) {
-            alert('Por favor, preencha todos os campos.');
+            toast.info('Por favor, preencha todos os campos.');
             return;
         }
 

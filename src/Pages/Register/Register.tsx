@@ -32,11 +32,11 @@ const Register: React.FC = () => {
         e.preventDefault();
 
         if (!params.name.trim() || !params.email.trim() || !params.password.trim() || !confirmPassword.trim()) {
-            alert('Por favor, preencha todos os campos.');
+            toast.info('Por favor, preencha todos os campos.');
             return;
         }
         if (params.password.trim() !== confirmPassword.trim()) {
-            alert('As senhas não coincidem.');
+            toast.error('As senhas não coincidem.');
             return;
         }
 
