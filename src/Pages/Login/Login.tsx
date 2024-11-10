@@ -91,7 +91,7 @@ const Login: React.FC = () => {
 
                 <button disabled={mutateLogin.isLoading} type="submit" className={styles.loginButton}>Entrar</button>
 
-                <p onClick={() => navigate('/register')}>Não possui conta? Crie agora!</p>
+                <span>Não possui conta? <p onClick={() => navigate('/register')}>Crie aqui!</p></span>
             </form>
         </div>
     );

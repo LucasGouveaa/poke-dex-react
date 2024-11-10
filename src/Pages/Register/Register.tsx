@@ -39,6 +39,10 @@ const Register: React.FC = () => {
             toast.error('As senhas não coincidem.');
             return;
         }
+        if (params.password.trim().length < 6){
+            toast.error('A senha deve conter no mínimo 6 caracteres.');
+            return;
+        }
 
         mutateRegister.mutate()
     };
@@ -127,7 +131,7 @@ const Register: React.FC = () => {
                     Registrar
                 </button>
 
-                <p onClick={() => navigate('/login')}>Já possui conta? Entre agora!</p>
+                <span>Já possui conta? <p onClick={() => navigate('/login')}>Entre agora!</p></span>
             </form>
         </div>
     );

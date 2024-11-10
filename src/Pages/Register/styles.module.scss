@@ -65,11 +65,18 @@ h1 {
   }
 }
 
-p{
+span {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
   margin-top: 10px;
 
-  &:hover{
-    cursor: pointer;
-    color: #0056b3;
+  p {
+    font-weight: 600;
+
+    &:hover {
+      cursor: pointer;
+      color: #0056b3;
+    }
   }
 }
