@@ -21,8 +21,27 @@ const FilterPokemons: React.FC<Props> = ({filter, setFilter, isLoading}) => {
     const [searchName, setSearchName] = useState('');
     const [filterHabitats, setFilterHabitats] = useState<Option | null>(null);
     const [filterTypes, setFilterTypes] = useState<Option | null>(null);
+    const [filterListType, setFilterListType] = useState<Option | null>({
+        label: 'Todos', value: ''
+    });
+
     const [habitats, setHabitats] = useState<Option[]>([]);
     const [types, setTypes] = useState<Option[]>([]);
+
+    const listType: Option[] = [
+        {
+            label: 'Todos', value: ''
+        },
+        {
+            label: 'Meus pokemons', value: 'my-pokemon'
+        },
+        {
+            label: 'Capturados', value: 'captured'
+        },
+        {
+            label: 'Disponíveis', value: 'available'
+        }
+    ]
 
     const {data: dataHabitats, isLoading: isLoadingHabitats} = useQuery(['habitats'], () => getHabitats(), {
         staleTime: Infinity
@@ -50,39 +69,53 @@ const FilterPokemons: React.FC<Props> = ({filter, setFilter, isLoading}) => {
             name: searchName,
             habitat: filterHabitats?.value,
             type: filterTypes ? filterTypes.value : null,
+            listType: filterListType ? filterListType.value : '',
             page: 1
         })
     }
 
 
     return (
-        <div className={styles.filters}>
-            <Input
-                type="text"
-                placeholder="Nome"
-                value={searchName}
-                onChange={(e) => setSearchName(e.target.value)}
-                className={styles.searchInput}
-                disabled={isLoading}
-            />
-            <Select
-                options={habitats}
-                placeholder="Habitat"
-                value={filterHabitats}
-                onChange={(options) => setFilterHabitats(options)}
-                isClearable
-                className={styles.select}
-                isDisabled={isLoading || isLoadingHabitats}
-            />
-            <Select
-                options={types}
-                placeholder="Tipo"
-                value={filterTypes}
-                onChange={(options) => setFilterTypes(options)}
-                isClearable
-                className={styles.select}
-                isDisabled={isLoading || isLoadingTypes}
-            />
+        <div className={styles.container}>
+            <div className={styles.filters}>
+                <Input
+                    type="text"
+                    placeholder="Nome"
+                    value={searchName}
+                    onChange={(e) => setSearchName(e.target.value)}
+                    className={styles.searchInput}
+                    disabled={isLoading}
+                />
+                <Select
+                    options={habitats}
+                    placeholder="Habitat"
+                    value={filterHabitats}
+                    onChange={(options) => setFilterHabitats(options)}
+                    isClearable
+                    className={styles.select}
+                    isDisabled={isLoading || isLoadingHabitats}
+                />
+                <Select
+                    options={types}
+                    placeholder="Tipo"
+                    value={filterTypes}
+                    onChange={(options) => setFilterTypes(options)}
+                    isClearable
+                    className={styles.select}
+                    isDisabled={isLoading || isLoadingTypes}
+                />
+
+                <Select
+                    options={listType}
+                    placeholder="Listagem"
+                    value={filterListType}
+                    onChange={(options) => setFilterListType(options)}
+                    isClearable
+                    className={styles.select}
+                    isDisabled={isLoading}
+                />
+
+            </div>
             <Button color="primary" onClick={handleFilter} className={styles.filterButton} isDisabled={isLoading}>
                 Filtrar
             </Button>

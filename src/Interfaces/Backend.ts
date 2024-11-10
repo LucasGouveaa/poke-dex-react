@@ -2,6 +2,7 @@ export interface IFilterPokemons {
     name: string | null;
     habitat: string | null;
     type: number | null;
+    listType: string
     page: number;
     pageSize: number
 }
@@ -27,6 +28,7 @@ export interface IPokemon {
     back_shiny_female?: string | null;
     types: IType[]
     trainer_name?: string | null;
+    is_trainer: boolean;
 }
 
 

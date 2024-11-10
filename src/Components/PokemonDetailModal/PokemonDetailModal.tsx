@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, ModalHeader, ModalBody} from 'reactstrap';
 import styles from './styles.module.scss';
-import {IPokemon, IType} from "../../Interfaces/Backend";
+import {IFilterPokemons, IPokemon, IType} from "../../Interfaces/Backend";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-switch';
 import img from '../../Images/pokeball.png';
 import {toast} from 'react-toastify';
+import {useMutation, useQueryClient} from "react-query";
+import {capturePokemon, releasePokemon} from "../../Services/Services";
 
 interface Props {
     isOpen: boolean;
@@ -16,6 +18,8 @@ interface Props {
 const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
     const [isShiny, setIsShiny] = useState(false);
     const [isFemale, setIsFemale] = useState(false);
+
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         setIsShiny(false)
@@ -39,9 +43,49 @@ const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
         }
     }
 
-    const capturePokemon = () => {
-        toast.success("Capturando " + pokemon.name)
-    }
+    const mutateCapturePokemon = useMutation(() => {
+            return capturePokemon(pokemon.id);
+        },
+        {
+            onSettled: (result) => {
+                if (result && result.data) {
+                    if (result.data.success) {
+                        toast.success(result.data.message)
+                        queryClient.invalidateQueries(['pokemons'])
+                        toggle()
+
+                    } else {
+                        toast.error(result.data.message)
+                    }
+                }
+            },
+            onError: (error) => {
+                console.log(error)
+                toast.error("Erro ao capturar pokemon.")
+            }
+        });
+
+    const mutateReleasePokemon = useMutation(() => {
+            return releasePokemon(pokemon.id);
+        },
+        {
+            onSettled: (result) => {
+                if (result && result.data) {
+                    if (result.data.success) {
+                        toast.success(result.data.message)
+                        queryClient.invalidateQueries(['pokemons'])
+                        toggle()
+
+                    } else {
+                        toast.error(result.data.message)
+                    }
+                }
+            },
+            onError: (error) => {
+                console.log(error)
+                toast.error("Erro ao capturar pokemon.")
+            }
+        })
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
@@ -100,9 +144,16 @@ const PokemonDetailModal: React.FC<Props> = ({isOpen, toggle, pokemon}) => {
                     <p><strong>Capturado por:</strong> {pokemon.trainer_name}</p>
                     :
                     <div className={styles.capture}>
-                        <button onClick={() => capturePokemon()}>
+                        <button onClick={() => mutateCapturePokemon.mutate()}>
                             <img src={img} alt={'Pokeball'}/>
                             <span>Capturar</span>
+                        </button>
+                    </div>
+                }
+                {pokemon.is_trainer &&
+                    <div className={styles.release}>
+                        <button onClick={() => mutateReleasePokemon.mutate()}>
+                            <span>Soltar</span>
                         </button>
                     </div>
                 }

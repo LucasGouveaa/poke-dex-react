@@ -58,3 +58,18 @@
   }
 
 }
+
+.release {
+  display: flex;
+  justify-content: center;
+
+  button {
+    background-color: #CC0000;
+    color: #f0f0f0;
+    width: 110px;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    padding: 5px;
+  }
+}

@@ -5,6 +5,14 @@ export const getPokemons = (data: IFilterPokemons) => {
     return Promise.resolve(api.get('/v1/pokemons', {params: data}))
 }
 
+export const capturePokemon = (pokemonId: number) => {
+    return Promise.resolve(api.post('/v1/pokemons/capture', {pokemonId: pokemonId}))
+}
+
+export const releasePokemon = (pokemonId: number) => {
+    return Promise.resolve(api.post('/v1/pokemons/release', {pokemonId: pokemonId}))
+}
+
 export const getHabitats = () => {
     return Promise.resolve(api.get('/v1/habitats'))
 }

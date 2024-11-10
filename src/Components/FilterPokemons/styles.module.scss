@@ -1,34 +1,51 @@
-.filters {
+.container {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: 10px;
   margin-bottom: 20px;
+  align-items: center;
 
-  .searchInput {
-    width: 200px;
+  @media (max-width: 967px) {
+    flex-direction: column;
   }
 
-  .select {
-    width: 200px;
-  }
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(4, 185px);
+    justify-content: center;
+    gap: 10px;
 
-  .filterButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin: 0 67px;
-
-    &:hover {
-      background-color: #0056b3;
+    @media (max-width: 967px) {
+      grid-template-columns: repeat(2, 185px);
     }
 
-    &:active {
-      background-color: #004494;
+    @media (max-width: 400px) {
+      grid-template-columns: repeat(1, 185px);
+    }
+
+    .searchInput {
+      width: 185px;
+    }
+
+    .select {
+      width: 185px;
+    }
+
+    .filterButton {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:active {
+        background-color: #004494;
+      }
     }
   }
 }
