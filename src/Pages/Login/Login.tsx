@@ -42,9 +42,9 @@ const Login: React.FC = () => {
             if (result && result.data) {
                 if (result.data.success) {
                     setCookies("jwt_token", result.data.token, {
-                        domain: window.location.hostname,
-                        path: "/",
-                        maxAge: 3600 * 24
+                        domain: process.env.REACT_APP_URL,
+                        path: '/',
+                        maxAge: 3600 * 24,
                     })
 
                     navigate('/')

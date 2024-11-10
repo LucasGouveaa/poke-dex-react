@@ -57,7 +57,7 @@ const TopBar: React.FC = () => {
         {
             onSettled: (result) => {
                 if (result && result.data && result.data.success) {
-                    removeCookie('jwt_token', {path: '/'});
+                    removeCookie('jwt_token', { path: '/', domain: process.env.REACT_APP_URL });
                     navigate('/login')
                 }
             },
