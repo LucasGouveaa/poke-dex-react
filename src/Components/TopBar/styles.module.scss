@@ -13,7 +13,9 @@
   .userInfo {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     cursor: pointer;
+    width: 178px;
   }
 
   .userAvatar {
@@ -40,7 +42,7 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     z-index: 1000;
-    min-width: 111px;
+    width: 200px;
     right: -1px;
 
     .logout {

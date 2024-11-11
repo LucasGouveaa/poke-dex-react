@@ -131,7 +131,7 @@ const Register: React.FC = () => {
                     Registrar
                 </button>
 
-                <span>Já possui conta? <p onClick={() => navigate('/login')}>Entre agora!</p></span>
+                <span className={styles.navigate}>Já possui conta? <p onClick={() => navigate('/login')}>Entre agora!</p></span>
             </form>
         </div>
     );
